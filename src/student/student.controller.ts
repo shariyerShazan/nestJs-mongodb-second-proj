@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 import { Student } from './student.schema';
 import { StudentService } from './student.service';
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Patch, Post, Put } from '@nestjs/common';
 
 @Controller('student')
 export class StudentController {
@@ -16,8 +16,25 @@ export class StudentController {
     async getStudents(){
         return this.studentService.getAllStudents();
     }
+
     @Get(":id")
     async getStudent(@Param("id") id: string){
         return this.studentService.getStudentById(id)
+    }
+
+    @Put(":id")
+    async updateStudent(
+        @Param("id") id: string ,
+        @Body() data: Partial<Student> ,
+    ){
+        return this.studentService.updateStudent(id , data)
+    }
+
+    @Patch(":id") 
+    async patchUpdate(
+        @Param("id") id: string ,
+        @Body() data: Partial<Student> ,
+    ){
+        return this.studentService.pathcUpdate(id , data)
     }
 }

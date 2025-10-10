@@ -5,6 +5,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Student, StudentDocument } from './student.schema';
 import { Model } from 'mongoose';
 
+
 @Injectable()
 export class StudentService {
     constructor(
@@ -20,6 +21,15 @@ export class StudentService {
     }
 
     async getStudentById(id: string) : Promise<Student | null>{
-           return this.studentModel.findById(id) ;
+           return this.studentModel.findById(id).exec() ;
+    }
+
+    async updateStudent(id: string , data: Partial<Student>): Promise<Student | null >{
+        const updated = await this.studentModel.findByIdAndUpdate(id , {name: data.name || null , age : data.age || null , email : data.email || null} , {overwrite: true ,new: true}).exec();
+        return updated
+    }
+ 
+    async pathcUpdate(id: string , data: Partial<Student>) : Promise<Student | null>{
+        return this.studentModel.findByIdAndUpdate(id , data , {new: true}).exec()
     }
 }
