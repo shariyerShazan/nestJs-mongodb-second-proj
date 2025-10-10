@@ -29,7 +29,10 @@ export class StudentService {
         return updated
     }
  
-    async pathcUpdate(id: string , data: Partial<Student>) : Promise<Student | null>{
+    async pathcStudent(id: string , data: Partial<Student>) : Promise<Student | null>{
         return this.studentModel.findByIdAndUpdate(id , data , {new: true}).exec()
+    }
+    async deleteStudent(id: string ) : Promise<Student | null> {
+        return this.studentModel.findByIdAndDelete(id).exec();
     }
 }
