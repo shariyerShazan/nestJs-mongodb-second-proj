@@ -5,6 +5,7 @@ import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { StudentModule } from './student/student.module';
+import { ProductService } from './product/product.service';
 
 @Module({
   imports: [
@@ -13,6 +14,6 @@ import { StudentModule } from './student/student.module';
     StudentModule
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, ProductService],
 })
 export class AppModule {}
